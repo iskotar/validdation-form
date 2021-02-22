@@ -3,7 +3,7 @@ import Form from './components/Form'
 import Message from './components/Message'
 
 function App() {
-    const [statusMessage, setStatusMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState(false);
 
         return (<div>
             <Form setStatusMessage={setStatusMessage}/>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import { PropTypes } from 'prop-types'
 
 const Form = ({setStatusMessage}) => {
   const [values, setValues] = useState({
@@ -21,7 +20,7 @@ const Form = ({setStatusMessage}) => {
   return (
     <div className="row">
       <h1 className="text-center">Form Validation</h1>
-      <form>
+      <form onSubmit={onValidate}>
         <h3>Name:
         </h3>
         <input type="text"
@@ -58,13 +57,9 @@ const Form = ({setStatusMessage}) => {
         />
 
         <div className="small-6 small-centered text-center columns">
-          <a href="#"
-             className="button success expand round text-center"
-             onClick={onValidate}
-             onBlur={() => setStatusMessage(false)}
-          >
+          <button className="button success expand round text-center" type="submit">
             Verify
-          </a>
+          </button>
         </div>
       </form>
     </div>
