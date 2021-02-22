@@ -1,37 +1,74 @@
-import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
+import React, { useState } from 'react'
+// import { PropTypes } from 'prop-types'
 
-class Form extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEmailValid: false,
-            isNameValid: false,
-            isPhoneValid: false,
-            isUrlValid: false,
-        };
+const Form = ({setStatusMessage}) => {
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    url: '',
+  })
 
-    }
-    
-    render() {
-        return (
-            <div className="row">
-            <h1 className="text-center">Form Validation</h1>
-            <form>
-                <h3>Name:
-                </h3>
-                <h3>Email:
-                </h3>
-                <h3>Phone:
-                </h3>
-                <h3>Blog URL:
-                </h3>
-                <div className="small-6 small-centered text-center columns">
-                    <a href="#" className="button success expand round text-center">Verify</a>
-                </div>
-            </form>
-        </div>);
-    }
+  const onValidate = () => {
+    const nameIsValid = /^[a-zA-Z\s]{3,30}$/.test(values.name);
+    const phoneIsValid = /^[2-9]{1}\d{9}$/.test(values.phone)
+    const emailIsValid = /^\w+@{1}\w+\.{1}\w+$/.test(values.email);
+    const urlIsValid = /^(http(s?)?:\/{2})?(www\.)?\w+\.{1}\w+/.test(values.url);
+
+    if(nameIsValid && phoneIsValid && emailIsValid && urlIsValid) setStatusMessage(true)
+  }
+
+  return (
+    <div className="row">
+      <h1 className="text-center">Form Validation</h1>
+      <form>
+        <h3>Name:
+        </h3>
+        <input type="text"
+               value={values.name}
+               placeholder='Enter your name'
+               onChange={(e) => setValues({ ...values, name: e.target.value })}
+               onBlur={() => setStatusMessage(false)}
+        />
+
+        <h3>Email:
+        </h3>
+        <input type="text" placeholder='Enter your email'
+               onChange={(e) => setValues({ ...values, email: e.target.value })}
+               value={values.email}
+               onBlur={() => setStatusMessage(false)}
+        />
+
+        <h3>Phone:
+        </h3>
+        <input type="text"
+               placeholder='Enter your phone'
+               onChange={(e) => setValues({ ...values, phone: e.target.value })}
+               value={values.phone}
+               onBlur={() => setStatusMessage(false)}
+        />
+
+        <h3>Blog URL:
+        </h3>
+        <input type="text"
+               placeholder='Enter your Blog URL'
+               onChange={(e) => setValues({ ...values, url: e.target.value })}
+               value={values.url}
+               onBlur={() => setStatusMessage(false)}
+        />
+
+        <div className="small-6 small-centered text-center columns">
+          <a href="#"
+             className="button success expand round text-center"
+             onClick={onValidate}
+             onBlur={() => setStatusMessage(false)}
+          >
+            Verify
+          </a>
+        </div>
+      </form>
+    </div>
+  )
 }
 
-export default Form;
+export default Form

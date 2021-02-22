@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Form from './components/Form'
 import Message from './components/Message'
 
-class App extends Component {
+function App() {
+    const [statusMessage, setStatusMessage] = useState('');
 
-    render() {
         return (<div>
-            <Form></Form>
-            <Message></Message>
+            <Form setStatusMessage={setStatusMessage}/>
+            <Message status={statusMessage}/>
         </div>);
-    }
 }
 
 export default App;
